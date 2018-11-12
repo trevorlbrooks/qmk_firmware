@@ -1,0 +1,13 @@
+#ifndef KEYMAP_CONFIG_H
+#define KEYMAP_CONFIG_H
+
+#ifndef LED_BRIGHTNESS_DEFAULT
+#undef LED_BRIGHTNESS_DEFAULT
+#define LED_BRIGHTNESS_DEFAULT  (LED_BRIGHTNESS_HI / 2)
+#endif
+
+#ifndef FORCE_NKRO
+#define FORCE_NKRO
+#endif
+
+#endif
