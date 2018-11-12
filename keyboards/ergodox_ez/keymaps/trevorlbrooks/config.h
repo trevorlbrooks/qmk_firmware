@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef KEYMAP_CONFIG_H
 #define KEYMAP_CONFIG_H
 
