@@ -1,2 +1,3 @@
 COMMAND_ENABLE = no
 SLEEP_LED_ENABLE = yes
+UNICODE_ENABLE   = yes # Unicode

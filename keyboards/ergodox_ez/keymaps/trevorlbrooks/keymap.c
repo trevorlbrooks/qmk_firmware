@@ -223,6 +223,7 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
+  set_unicode_input_mode(UC_WIN);
 };
 
 // Runs constantly in the background, in a loop.
