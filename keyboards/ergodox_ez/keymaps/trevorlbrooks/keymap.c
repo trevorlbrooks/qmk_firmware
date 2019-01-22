@@ -326,41 +326,43 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  rgb_led led;
+  //rgb_led led;
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    led = g_rgb_leds[i];
-    if (led.matrix_co.raw < 0xFF) {
-      if (led.modifier) {
+    //led = g_rgb_leds[i];
+    //if (led.matrix_co.raw < 0xFF) {
+      //if (led.modifier) {
           rgb_matrix_set_color( i, red, green, blue );
-      }
-    }
+      //}
+    //}
   }
 }
 
 void rgb_matrix_indicators_user(void) {
   switch (biton32(layer_state)) {
     case BASE:
-      rgb_matrix_layer_helper(0x7F, 0x7F, 0x7F); break;
-    case SYMB:
       rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+    case SYMB:
+      rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
     case MDIA:
       rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
     case GAME:
-      rgb_matrix_layer_helper(0x7F, 0x00, 0x00);
+      rgb_matrix_layer_helper(0x3F, 0x00, 0x00);
       //Movement
-      rgb_matrix_set_color(31, 0x7F, 0x7F, 0x7F); // W
-      rgb_matrix_set_color(37, 0x7F, 0x7F, 0x7F); // A
-      rgb_matrix_set_color(36, 0x7F, 0x7F, 0x7F); // S
-      rgb_matrix_set_color(35, 0x7F, 0x7F, 0x7F); // D
+      rgb_matrix_set_color(32, 0x7F, 0x7F, 0x7F); // W
+      rgb_matrix_set_color(38, 0x7F, 0x7F, 0x7F); // A
+      rgb_matrix_set_color(37, 0x7F, 0x7F, 0x7F); // S
+      rgb_matrix_set_color(36, 0x7F, 0x7F, 0x7F); // D
 
       //Common game keys
-      rgb_matrix_set_color(32, 0xFF, 0x00, 0x00); // Q
-      rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
-      rgb_matrix_set_color(29, 0xFF, 0x00, 0x00); // R
-      rgb_matrix_set_color(34, 0xFF, 0x00, 0x00); // F
-      rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
-      rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
-      rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
+      rgb_matrix_set_color(33, 0xFF, 0x00, 0x00); // Q
+      rgb_matrix_set_color(31, 0xFF, 0x00, 0x00); // E
+      rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // R
+      rgb_matrix_set_color(35, 0xFF, 0x00, 0x00); // F
+      rgb_matrix_set_color(28, 0x00, 0x00, 0x7F); // 1
+      rgb_matrix_set_color(27, 0x00, 0x00, 0x7F); // 2
+      rgb_matrix_set_color(26, 0x00, 0x00, 0x7F); // 3
+      rgb_matrix_set_color(25, 0x00, 0x00, 0x7F); // 3
+
       break;
   }
 }
