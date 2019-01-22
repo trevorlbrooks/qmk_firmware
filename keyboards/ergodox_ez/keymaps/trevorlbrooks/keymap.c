@@ -266,6 +266,7 @@ void matrix_init_user(void) {
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
   set_unicode_input_mode(UC_WIN);
+  rgblight_mode(1);
 };
 
 // Runs constantly in the background, in a loop.
@@ -317,6 +318,9 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 #ifdef RGB_MATRIX_ENABLE
+
+rgb_config_t rgb_matrix_config;
+
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
 }
@@ -325,28 +329,34 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  //rgb_led led;
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    //led = g_rgb_leds[i];
-    //if (led.matrix_co.raw < 0xFF) {
-      //if (led.modifier) {
-          rgb_matrix_set_color( i, red, green, blue );
-      //}
-    //}
-  }
+bool suspended = false;
+void suspend_power_down_kb(void)
+{
+    rgb_matrix_disable_noeeprom();
+    suspended = true;
+}
+
+void suspend_wakeup_init_kb(void)
+{
+    rgb_matrix_enable_noeeprom();
+    suspended = false;
 }
 
 void rgb_matrix_indicators_user(void) {
+  if(rgb_matrix_config.enable == 0){
+    rgb_matrix_set_color_all(0, 0, 0);
+    return;
+  }
+
   switch (biton32(layer_state)) {
     case BASE:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+      rgb_matrix_set_color_all(0xFF, 0x00, 0x00); break;
     case SYMB:
-      rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
+      rgb_matrix_set_color_all(0x00, 0x00, 0xFF); break;
     case MDIA:
-      rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+      rgb_matrix_set_color_all(0x00, 0xFF, 0xFF); break;
     case GAME:
-      rgb_matrix_layer_helper(0x3F, 0x00, 0x00);
+      rgb_matrix_set_color_all(0x3F, 0x00, 0x00);
       //Movement
       rgb_matrix_set_color(32, 0x7F, 0x7F, 0x7F); // W
       rgb_matrix_set_color(38, 0x7F, 0x7F, 0x7F); // A

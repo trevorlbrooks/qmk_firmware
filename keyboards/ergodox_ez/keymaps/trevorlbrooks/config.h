@@ -18,6 +18,8 @@
 #endif
 
 #define UNICODE_SELECTED_MODES UC_OSX, UC_WIN
-#define UNICODE_OSX_KEY  KC_LALT
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #endif
+
+

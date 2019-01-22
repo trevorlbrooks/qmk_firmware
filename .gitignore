@@ -68,3 +68,9 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+
+
+lib/lufa/Projects/TempDataLogger/TempLogHostApp/obj/*
+lib/lufa/Projects/LEDNotifier/CPUUsageApp/obj/*
+lib/lufa/Projects/TempDataLogger/TempLogHostApp/obj/*
+lib/lufa/Projects/LEDNotifier/LEDMixerApp/obj/*
