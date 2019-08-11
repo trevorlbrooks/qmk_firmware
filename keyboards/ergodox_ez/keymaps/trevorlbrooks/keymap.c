@@ -330,13 +330,14 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 bool suspended = false;
-void suspend_power_down_kb(void)
+
+void suspend_power_down_user(void)
 {
     rgb_matrix_disable_noeeprom();
     suspended = true;
 }
 
-void suspend_wakeup_init_kb(void)
+void suspend_wakeup_init_user(void)
 {
     rgb_matrix_enable_noeeprom();
     suspended = false;
