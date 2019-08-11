@@ -54,6 +54,7 @@ util/Win_Check_Output.txt
 .vscode/tasks.json
 .vscode/last.sql
 .vscode/temp.sql
+.vscode/ipch/
 .stfolder
 .tags
 
@@ -70,8 +71,5 @@ secrets.tar
 id_rsa_*
 /.vs
 
-
-lib/lufa/Projects/TempDataLogger/TempLogHostApp/obj/*
-lib/lufa/Projects/LEDNotifier/CPUUsageApp/obj/*
-lib/lufa/Projects/TempDataLogger/TempLogHostApp/obj/*
-lib/lufa/Projects/LEDNotifier/LEDMixerApp/obj/*
+# python things
+__pycache__
