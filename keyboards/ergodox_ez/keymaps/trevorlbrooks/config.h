@@ -28,4 +28,16 @@
 
 #endif
 
-
+// Disable some features
+#ifndef NO_DEBUG
+    #define NO_DEBUG
+#endif
+#ifndef NO_PRINT
+    #define NO_PRINT
+#endif
+#ifndef NO_ACTION_MACRO
+    #define NO_ACTION_MACRO
+#endif
+#ifndef NO_ACTION_FUNCTION
+    #define NO_ACTION_FUNCTION
+#endif
