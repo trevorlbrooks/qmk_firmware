@@ -1,6 +1,7 @@
--include ../trevorlbrooks/rules.mk
-
+COMMAND_ENABLE = no
+SLEEP_LED_ENABLE = yes
+UNICODE_ENABLE   = yes # Unicode
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes # enable later
 
-SRC += ../trevorlbrooks/keymap.c
+# SRC += keymaps/trevorlbrooks/keymap.c

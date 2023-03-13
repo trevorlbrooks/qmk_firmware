@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_F5,
-        KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
+        KC_DEL,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         KC_GRV,         KC_QUOT,      KC_LALT,  KC_LEFT,KC_RGHT,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-       RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_NO,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
-    ),
+    )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -215,22 +215,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef UNICODE_ENABLE
     case UC_FLIP: // (ノಠ痊ಠ)ノ彡┻━┻
       if (record->event.pressed) {
-        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
       }
       break;
     case UC_TABL: // ┬─┬ノ( º _ ºノ)
       if (record->event.pressed) {
-        send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029");
+        send_unicode_string("┬─┬ノ( º _ ºノ)");
       }
       break;
     case UC_SHRG: // ¯\_(ツ)_/¯
       if (record->event.pressed) {
-        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+        send_unicode_string("¯\\_(ツ)_/¯");
       }
       break;
     case UC_DISA: // ಠ_ಠ
       if (record->event.pressed) {
-        send_unicode_hex_string("0CA0 005F 0CA0");
+        send_unicode_string("ಠ_ಠ");
       }
       break;
 #endif
@@ -243,7 +243,7 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
-  set_unicode_input_mode(UC_WIN);
+  set_unicode_input_mode(UNICODE_MODE_WINDOWS);
   rgblight_mode(1);
 };
 
@@ -253,13 +253,13 @@ void matrix_scan_user(void) {
 };
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   switch (layer) {
       case BASE:
         #ifdef RGBLIGHT_COLOR_LAYER_0
@@ -321,10 +321,10 @@ void suspend_wakeup_init_user(void)
     suspended = false;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   if(rgb_matrix_config.enable == 0){
     rgb_matrix_set_color_all(0, 0, 0);
-    return;
+    return false;
   }
 
   switch (biton32(layer_state)) {
@@ -354,5 +354,6 @@ void rgb_matrix_indicators_user(void) {
 
       break;
   }
+  return false;
 }
 #endif
